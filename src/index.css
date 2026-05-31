@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #080808;
+  --color-sidebar: #0c0c0c;
+  --color-accent: #10B981;
+  --color-star: #FBBF24;
+  --color-border: #202020;
+  --color-text: #F5F5F5;
+  --color-muted: #888888;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+* {
+  font-family: var(--font-sans);
+}
+
+.font-serif, h1, h2, h3, h4, .font-serif * {
+  font-family: var(--font-serif) !important;
+}
+
+.font-mono, .font-mono * {
+  font-family: var(--font-mono) !important;
+}
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --color-editorial-bg: #080808;
+  --color-editorial-sidebar: #0c0c0c;
+  --color-editorial-accent: #10B981;
+  --color-editorial-star: #FBBF24;
+  --color-editorial-border: #202020;
+  --color-editorial-text: #F5F5F5;
+  --color-editorial-muted: #888888;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

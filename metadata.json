@@ -1,0 +1,6 @@
+{
+  "name": "Lotto Strategy Hub",
+  "description": "An advanced mathematical analysis, game-theory, and deterministic chaos dashboard optimizing UK National Lottery and EuroMillions selections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

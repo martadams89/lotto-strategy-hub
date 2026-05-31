@@ -1,0 +1,49 @@
+name: Scheduled Drew Data Synchronizer
+
+on:
+  schedule:
+    # Runs at 21:30 UTC / 22:30 BST every Tuesday, Wednesday, Friday, and Saturday
+    # representing typical UK National Lottery & EuroMillions release hours
+    - cron: '30 21 * * 2,3,5,6'
+  workflow_dispatch: # Allows manual trigger directly from the GitHub Actions UI
+
+permissions:
+  contents: write # Important: allows the workflow to push database updates back to the repo
+
+jobs:
+  update-database:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Node.js Environmental Runtime
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Development Dependencies
+      run: npm ci
+
+    - name: Execute Live Scraper Ingestion Engine
+      run: npm run scrape
+
+    - name: Commit & Push New Draw Database Additions
+      run: |
+        git config --global user.name "Github Oracle Scraper"
+        git config --global user.email "actions@github.com"
+        
+        # Check if databases under src/data were modified
+        if git status --porcelain | grep -q "src/data/"; then
+          echo "New draws recovered! Preparing database serialization..."
+          git add src/data/lotto.json src/data/euromillions.json
+          git commit -m "database: sync newest lottery draw logs via automated scrape [skip ci]"
+          git push origin HEAD:${{ github.ref }}
+          echo "Automated synchronization successful. Database is up to date!"
+        else
+          echo "No new draws detected. Historical indices remain fully synchronized."
+        fi
