@@ -109,15 +109,19 @@ export const LedgerView: React.FC<LedgerViewProps> = ({ data, activeTab }) => {
                         <span className="text-emerald-400 text-sm font-semibold">{h.bonus ? (h.bonus < 10 ? `0${h.bonus}` : h.bonus) : "--"}</span>
                       )}
                     </td>
-                    <td className="px-6 py-3.5 text-zinc-200 font-medium">{h.jackpotAmount || "£3.6 Million"}</td>
+                    <td className="px-6 py-3.5 text-zinc-200 font-medium">{h.jackpotAmount || "N/A"}</td>
                     <td className="px-6 py-3.5 text-center">
-                      {h.winners !== undefined && h.winners === 0 ? (
-                        <span className="text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-sans font-bold">Rollover</span>
+                      {h.winners !== undefined ? (
+                        h.winners === 0 ? (
+                          <span className="text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded text-[10px] font-sans font-bold">Rollover</span>
+                        ) : (
+                          <span className="text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded text-[10px] font-sans font-normal inline-flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3 shrink-0" />
+                            <span>{h.winners} {h.winners === 1 ? "Winner" : "Winners"}</span>
+                          </span>
+                        )
                       ) : (
-                        <span className="text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded text-[10px] font-sans font-normal inline-flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3 shrink-0" />
-                          <span>{h.winners || hIdx % 3 + 1} Claimed</span>
-                        </span>
+                        <span className="text-zinc-500 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-[10px] font-sans font-medium">Completed</span>
                       )}
                     </td>
                     <td className="px-6 py-3.5 text-right font-semibold text-zinc-300">{sumVal}</td>
