@@ -1,9 +1,9 @@
-# 🔮 The Lottery Oracle v2.0
+# 🔮 Lotto Strategy Hub
 > High-Fidelity Mathematical Forecast Modeling & Anti-Split-Pot Strategy Engine for UK Lotto & EuroMillions.
 
-**The Lottery Oracle** is a sophisticated, responsive, and mobile-friendly serverless web application designed to forecast the next optimal draws for both **EuroMillions** and **UK Lotto**. 
+**Lotto Strategy Hub** is a sophisticated, responsive, and mobile-friendly serverless web application designed to forecast the next optimal draws for both **EuroMillions** and **UK Lotto**. 
 
-Rather than promising fake physical predictions (which are strictly governed by random chance), the Oracle focuses on **maximizing your Expected Value, $E[X]$**. It analyzes the **entire draw history** ever made for each game (thousands of draws stretching back to 1994 for UK Lotto and 2004 for EuroMillions) and maps human preference distributions. It filters out common human numbers (birthdays, visual keyboard patterns, consecutive ranges) to protect your potential jackpot from being shared among multiple winners (the **anti-split-pot strategy**).
+Rather than promising fake physical predictions (which are strictly governed by random chance), the Hub focuses on **maximizing your Expected Value, $E[X]$**. It analyzes the **entire draw history** ever made for each game (thousands of draws stretching back to 1994 for UK Lotto and 2004 for EuroMillions) and maps human preference distributions. It filters out common human numbers (birthdays, visual keyboard patterns, consecutive ranges) to protect your potential jackpot from being shared among multiple winners (the **anti-split-pot strategy**).
 
 The application is completely dual-mode: it runs with a full Node/Express backend or compiles into a **100% static, serverless Single Page Application (SPA)** ideal for zero-cost edge hosting on **Cloudflare Pages**, with automated database updates handled via **GitHub Actions**. To guarantee uncompromised performance and real-time synchronization in serverless/static environments, the client-side module features a **smart high-fidelity fallback** that queries the public dataset JSON assets directly from the public GitHub repository (`martadams89/lotto-strategy-hub`), instantly hydrating the visual components and deep historical archives with complete dataset points across thousands of historical runs.
 
