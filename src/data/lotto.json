@@ -1,16 +1,32 @@
 [
   {
-    "date": "2026-05-30",
+    "date": "2026-06-03",
     "numbers": [
-      4,
-      17,
-      18,
+      7,
+      10,
       20,
-      23,
-      56
+      55,
+      57,
+      59
     ],
     "stars": [],
-    "bonus": 33,
+    "bonus": 44,
+    "winners": 1,
+    "jackpotAmount": "£8.4M",
+    "hasJackpotWinner": true
+  },
+  {
+    "date": "2026-05-30",
+    "numbers": [
+      5,
+      12,
+      19,
+      33,
+      44,
+      58
+    ],
+    "bonus": 8,
+    "stars": [],
     "winners": 1,
     "jackpotAmount": "£7.6M",
     "hasJackpotWinner": true
