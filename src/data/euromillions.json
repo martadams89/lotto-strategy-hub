@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-09",
+    "numbers": [
+      2,
+      7,
+      23,
+      44,
+      46
+    ],
+    "stars": [
+      3,
+      5
+    ],
+    "winners": 1,
+    "jackpotAmount": "£69M",
+    "hasJackpotWinner": true
+  },
+  {
     "date": "2026-06-05",
     "numbers": [
       5,
