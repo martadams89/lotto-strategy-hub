@@ -1,54 +1,80 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+/* Fonts are loaded via <link> in index.html for faster, parallel fetching. */
+
+/*
+  Calm, minimal, high-contrast. The old build was near-black with 8–10px
+  low-contrast mono text everywhere — that was the readability problem. This is
+  the opposite: paper-light by default, roomy spacing, real type sizes, and the
+  balls carry the colour. Works in light and dark.
+*/
 
 :root {
-  --color-bg: #080808;
-  --color-sidebar: #0c0c0c;
-  --color-accent: #10B981;
-  --color-star: #FBBF24;
-  --color-border: #202020;
-  --color-text: #F5F5F5;
-  --color-muted: #888888;
-  
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  color-scheme: light dark;
+  --paper: #faf9f7;
+  --panel: #ffffff;
+  --ink: #1c1917;
+  --muted: #78716c;
+  --line: #e7e5e4;
+  --accent: #4f46e5;
+  --accent-ink: #4338ca;
 }
 
-* {
-  font-family: var(--font-sans);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0c0a09;
+    --panel: #16130f;
+    --ink: #f5f5f4;
+    --muted: #a8a29e;
+    --line: #292524;
+    --accent: #818cf8;
+    --accent-ink: #a5b4fc;
+  }
 }
 
-.font-serif, h1, h2, h3, h4, .font-serif * {
-  font-family: var(--font-serif) !important;
+html {
+  background: var(--paper);
 }
 
-.font-mono, .font-mono * {
-  font-family: var(--font-mono) !important;
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-@theme {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-serif: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
-  --color-editorial-bg: #080808;
-  --color-editorial-sidebar: #0c0c0c;
-  --color-editorial-accent: #10B981;
-  --color-editorial-star: #FBBF24;
-  --color-editorial-border: #202020;
-  --color-editorial-text: #F5F5F5;
-  --color-editorial-muted: #888888;
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fade-up 0.4s ease both;
+}
+
+/* Thin, unobtrusive scrollbars for the archive table */
+.scroll-thin::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 35%, transparent);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.scroll-thin::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; }
+  * { scroll-behavior: auto !important; }
 }
