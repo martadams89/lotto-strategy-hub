@@ -1,0 +1,6 @@
+# ai.txt — AI/agent usage policy for lotto-hub.localedgeconsulting.co.uk
+User-Agent: *
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+# llms.txt: https://lotto-hub.localedgeconsulting.co.uk/llms.txt  |  API catalogue: https://lotto-hub.localedgeconsulting.co.uk/.well-known/api-catalog
+Contact: mailto:martin@prosurvey.app

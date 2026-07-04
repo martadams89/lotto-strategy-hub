@@ -1,0 +1,8 @@
+/*
+  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="llms.txt", </.well-known/api-catalog>; rel="api-catalog", </sitemap.xml>; rel="sitemap"; type="application/xml"
+  Content-Signal: search=yes, ai-input=yes, ai-train=yes
+  X-Robots-Tag: all
+  Vary: Accept
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json

@@ -1,0 +1,17 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://lotto-hub.localedgeconsulting.co.uk/",
+      "service-desc": [
+        { "href": "https://lotto-hub.localedgeconsulting.co.uk/llms.txt", "type": "text/plain", "title": "Lotto Strategy Hub — agent/LLM site manifest (llms.txt)" }
+      ],
+      "service-doc": [
+        { "href": "https://lotto-hub.localedgeconsulting.co.uk/", "type": "text/html", "title": "Lotto Strategy Hub website" }
+      ],
+      "service-meta": [
+        { "href": "https://lotto-hub.localedgeconsulting.co.uk/sitemap.xml", "type": "application/xml", "title": "XML sitemap" },
+        { "href": "https://lotto-hub.localedgeconsulting.co.uk/.well-known/security.txt", "type": "text/plain", "title": "Security contact (RFC 9116)" }
+      ]
+    }
+  ]
+}

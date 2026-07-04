@@ -1,0 +1,23 @@
+# Lotto Strategy Hub
+
+> Data-driven lottery number analysis and strategy tools — frequency statistics, hot/cold number tracking, draw history and probability-based insights. A free tool published by Local Edge Consulting.
+
+Lotto Strategy Hub helps players explore historical lottery draw data and number patterns. It is an analytics and education tool — it does not predict winning numbers and makes no guarantee of winnings; lotteries are games of chance.
+
+- **Site:** https://lotto-hub.localedgeconsulting.co.uk
+- **Publisher:** Local Edge Consulting — https://www.localedgeconsulting.co.uk
+- **Sitemap:** https://lotto-hub.localedgeconsulting.co.uk/sitemap.xml
+
+## What it offers
+- Historical draw data and frequency analysis (how often each number has been drawn).
+- Hot and cold number tracking over configurable date ranges.
+- Number-pattern and distribution visualisations.
+- Probability and odds explainers to inform (not guarantee) selections.
+
+## Honest limitations
+- Every draw is independent and random; past frequency does not change future odds.
+- This is an informational/analytical tool, not gambling advice or a prediction service.
+
+## Related
+- Local Edge Consulting (publisher): https://www.localedgeconsulting.co.uk
+- BentoPDF (free self-hosted PDF toolkit): https://bentopdf.localedgeconsulting.co.uk
