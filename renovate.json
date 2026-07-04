@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "group:allNonMajor"
+  ],
+  "timezone": "Europe/London",
+  "schedule": ["after 10pm every weekday", "every weekend"],
+  "labels": ["dependencies"],
+  "prHourlyLimit": 3,
+  "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "description": "Auto-merge everything once CI is green — self-maintaining. The test suite (npm test) and build are the gate.",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
+      "automerge": true
+    },
+    {
+      "description": "Major updates: also auto-merged when green, per project policy. A green CI means tests + build passed.",
+      "matchUpdateTypes": ["major"],
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "Lotto Strategy Hub",
-  "description": "An advanced mathematical analysis, game-theory, and deterministic chaos dashboard optimizing UK National Lottery and EuroMillions selections.",
+  "description": "An honest number picker and full results archive for UK Lotto and EuroMillions. It can't predict the draw — nothing can — but it helps you play uncrowded numbers so you're less likely to share a prize.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
