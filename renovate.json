@@ -10,7 +10,7 @@
   "schedule": ["after 10pm every weekday", "every weekend"],
   "labels": ["dependencies"],
   "prHourlyLimit": 3,
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
