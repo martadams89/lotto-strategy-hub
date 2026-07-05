@@ -194,6 +194,7 @@ export default function App() {
             >
               BeGambleAware.org
             </a>
+            <a href="/agents" className="text-indigo-600 dark:text-indigo-400 hover:underline">For AI agents (MCP)</a>
           </p>
         </div>
       </footer>
