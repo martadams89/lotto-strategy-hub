@@ -105,3 +105,7 @@ The lottery has a negative expected return — on average you get back less than
 you put in. Never spend money you can't comfortably lose, and never chase losses.
 Free, confidential help: [BeGambleAware.org](https://www.begambleaware.org/) or
 the National Gambling Helpline on **0808 8020 133**. 18+.
+
+## Agent-readiness / Cloudflare edge
+
+Scripts to manage this site's AI-agent surface and DNSSEC (the checks at https://isitagentready.com) live in [`scripts/agent-readiness/`](scripts/agent-readiness/) — see that folder's README for what they do, why, and how to run them. No credentials are committed; you supply them via a git-ignored `.env`.
