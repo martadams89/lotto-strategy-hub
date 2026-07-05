@@ -4,22 +4,48 @@
 //   else                  -> Markdown-for-Agents negotiation, else passthrough
 // submit_enquiry posts to this site's real contact form (Web3Forms).
 const PROTOCOL_VERSION = '2025-06-18';
-const WEB3FORMS_KEY = ''; // no contact API on this site
+const WEB3FORMS_KEY = '';
+// Web Bot Auth signing directory (published public key; RFC-9421 message signatures).
+const WEBBOTAUTH = { keys: [{ crv: 'Ed25519', x: '8pb8MgByDTQEwjSlGawfpPUXCDmMK5epo_b_34O1rHo', kty: 'OKP', kid: 'zYX3GdCfOks5c-YLnzhauxW6X4biN5zVyIa4eN2hG04', use: 'sig', alg: 'Ed25519' }] };
 
 export async function onRequest(context) {
   const { request, next } = context;
-  const url = new URL(request.url), origin = url.origin, site = url.hostname;
+  const url = new URL(request.url), origin = url.origin, site = url.hostname, p = url.pathname;
 
-  if (url.pathname === '/.well-known/mcp.json') return json(mcpCard(origin, site));
-  if (url.pathname === '/mcp') return handleMcp(request, origin, site);
+  if (p === '/.well-known/mcp.json') return json(mcpCard(origin, site));
+  if (p === '/mcp') return handleMcp(request, origin, site);
+  if (p === '/.well-known/http-message-signatures-directory') return json(WEBBOTAUTH, 200, 'application/http-message-signatures-directory+json');
+  if (p === '/.well-known/agent-skills/index.json') return json(await agentSkills(origin));
+  if (p === '/auth.md') return new Response(authMd(origin, site), { headers: { 'Content-Type': 'text/markdown; charset=utf-8', 'Access-Control-Allow-Origin': '*' } });
 
   const accept = request.headers.get('Accept') || '';
   const wantsMd = /text\/markdown/i.test(accept) && !/text\/html/i.test((accept.split(',')[0] || ''));
   const res = await next();
   const ct = res.headers.get('Content-Type') || '';
   if (!ct.includes('text/html')) return res;
-  if (!wantsMd || res.status !== 200) { const r = new Response(res.body, res); r.headers.set('Vary', 'Accept'); return r; }
-  return new Response(htmlToMarkdown(await res.text(), origin), { status: 200, headers: { 'Content-Type': 'text/markdown; charset=utf-8', 'Vary': 'Accept', 'X-Robots-Tag': 'all' } });
+  if (wantsMd && res.status === 200) return new Response(htmlToMarkdown(await res.text(), origin), { status: 200, headers: { 'Content-Type': 'text/markdown; charset=utf-8', 'Vary': 'Accept', 'X-Robots-Tag': 'all' } });
+  // HTML: inject a WebMCP registration so in-browser agents see the same tools.
+  const html = await res.text();
+  const out = html.includes('</body>') ? html.replace('</body>', webmcpScript() + '</body>') : html + webmcpScript();
+  const h = new Headers(res.headers); h.set('Vary', 'Accept'); h.delete('Content-Length');
+  return new Response(out, { status: res.status, headers: h });
+}
+
+function webmcpScript() {
+  return `<script>(function(){try{var m=navigator.modelContext;if(!m||!m.provideContext)return;async function c(n,a){var r=await fetch('/mcp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'tools/call',params:{name:n,arguments:a||{}}})});var d=await r.json();return (d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text)||JSON.stringify(d);}m.provideContext({tools:[{name:'get_site_overview',description:'Overview of this business/product.',inputSchema:{type:'object',properties:{}},execute:function(){return c('get_site_overview');}},{name:'submit_enquiry',description:'Send a contact enquiry (name,email,message).',inputSchema:{type:'object',properties:{name:{type:'string'},email:{type:'string'},message:{type:'string'}},required:['email','message']},execute:function(a){return c('submit_enquiry',a);}}]});}catch(e){}})();</script>`;
+}
+async function sha256hex(s) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
+async function agentSkills(origin) {
+  const skills = await Promise.all(TOOLS.map(async t => ({ name: t.name, type: 'mcp-tool', description: t.description, url: `${origin}/mcp`, sha256: await sha256hex(t.name + '\n' + t.description) })));
+  return { '$schema': 'https://agentskills.io/schema/v0.2.0/index.json', version: '0.2.0', skills };
+}
+function authMd(origin, site) {
+  return `# Agent access — ${site}\n\n`
+    + `This site exposes a public, read-first **Model Context Protocol** server for AI agents.\n\n`
+    + `## Connect\n- MCP endpoint: \`${origin}/mcp\` (JSON-RPC 2.0, streamable HTTP)\n- Server card: \`${origin}/.well-known/mcp.json\`\n- Skills index: \`${origin}/.well-known/agent-skills/index.json\`\n\n`
+    + `## Authentication\nNo authentication or registration is required to list or call the tools — they are public and read-only, except \`submit_enquiry\`, which forwards a contact message.\n\n`
+    + `## Identity / signed requests\nAgents may verify this origin via Web Bot Auth: \`${origin}/.well-known/http-message-signatures-directory\`.\n\n`
+    + `## Contact & data rights\nUse the \`submit_enquiry\` or \`get_contact_and_data_rights\` tools, or the contact form on ${site}.\n`;
 }
 
 function mcpCard(origin, site) {
@@ -72,7 +98,7 @@ async function handleMcp(request, origin, site) {
 const text = s => ({ type: 'text', text: String(s).slice(0, 100000) });
 const rpcOk = (id, result) => ({ jsonrpc: '2.0', id, result });
 const rpcError = (id, code, message) => ({ jsonrpc: '2.0', id, error: { code, message } });
-function json(o, s = 200) { return new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' } }); }
+function json(o, s = 200, ct = 'application/json; charset=utf-8') { return new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': ct, 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' } }); }
 async function fetchText(u) { const r = await fetch(u, { headers: { 'User-Agent': 'agent-mcp' } }); return r.ok ? (await r.text()).slice(0, 200000) : ''; }
 function htmlToMarkdown(html, origin) {
   const S = s => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
