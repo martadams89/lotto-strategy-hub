@@ -20,4 +20,4 @@ Lotto Strategy Hub helps players explore historical lottery draw data and number
 
 ## Related
 - Local Edge Consulting (publisher): https://www.localedgeconsulting.co.uk
-- BentoPDF (free self-hosted PDF toolkit): https://bentopdf.localedgeconsulting.co.uk
+- BentoPDF (free self-hosted PDF toolkit): https://pdf.localedgeconsulting.co.uk
