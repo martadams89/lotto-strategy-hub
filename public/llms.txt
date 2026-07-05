@@ -21,3 +21,12 @@ Lotto Strategy Hub helps players explore historical lottery draw data and number
 ## Related
 - Local Edge Consulting (publisher): https://www.localedgeconsulting.co.uk
 - BentoPDF (free self-hosted PDF toolkit): https://pdf.localedgeconsulting.co.uk
+
+## For AI agents (MCP)
+
+This site runs a Model Context Protocol (MCP) server so AI agents can read it and take a few safe actions.
+
+- Agent guide: https://lotto-hub.localedgeconsulting.co.uk/agents
+- MCP endpoint: https://lotto-hub.localedgeconsulting.co.uk/mcp
+- Server card: https://lotto-hub.localedgeconsulting.co.uk/.well-known/mcp.json
+- Skills index: https://lotto-hub.localedgeconsulting.co.uk/.well-known/agent-skills/index.json
