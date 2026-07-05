@@ -40,10 +40,13 @@ async function agentSkills(origin) {
   return { '$schema': 'https://agentskills.io/schema/v0.2.0/index.json', version: '0.2.0', skills };
 }
 function authMd(origin, site) {
-  return `# Agent access — ${site}\n\n`
-    + `This site exposes a public, read-first **Model Context Protocol** server for AI agents.\n\n`
+  // H1 MUST contain the literal "auth.md" (isitagentready auth.md skill).
+  return `# auth.md — ${site}\n\n`
+    + `Agent authentication & access metadata for **${site}**, following the auth.md convention (https://workos.com/auth-md).\n\n`
+    + `## Audience\nAI agents and answer engines connecting to this site's Model Context Protocol server.\n\n`
     + `## Connect\n- MCP endpoint: \`${origin}/mcp\` (JSON-RPC 2.0, streamable HTTP)\n- Server card: \`${origin}/.well-known/mcp.json\`\n- Skills index: \`${origin}/.well-known/agent-skills/index.json\`\n\n`
-    + `## Authentication\nNo authentication or registration is required to list or call the tools — they are public and read-only, except \`submit_enquiry\`, which forwards a contact message.\n\n`
+    + `## Registration & provisioning\nNo registration is required — the tools are public and read-only, except \`submit_enquiry\`, which forwards a contact message (also no credentials).\n\n`
+    + `## Supported methods & credentials\nOpen access over HTTPS; no authentication or bearer token is needed. There is no protected resource on this site.\n\n`
     + `## Identity / signed requests\nAgents may verify this origin via Web Bot Auth: \`${origin}/.well-known/http-message-signatures-directory\`.\n\n`
     + `## Contact & data rights\nUse the \`submit_enquiry\` or \`get_contact_and_data_rights\` tools, or the contact form on ${site}.\n`;
 }
