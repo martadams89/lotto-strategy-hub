@@ -13,5 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: googleapis/release-please-action@v4
+        id: rp
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # The default GITHUB_TOKEN never triggers workflows on the PRs it
+          # opens, so the release PR's required CI check would never run and
+          # auto-merge would have nothing to gate on. Use the Renovate PAT
+          # instead, same as Renovate's own PRs.
+          token: ${{ secrets.RENOVATE_TOKEN }}
+
+      - name: Enable auto-merge on the release PR
+        if: ${{ steps.rp.outputs.prs_created == 'true' && steps.rp.outputs.pr }}
+        env:
+          GH_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+        run: gh pr merge --auto --squash "${{ fromJSON(steps.rp.outputs.pr).number }}" --repo "${{ github.repository }}" || true
