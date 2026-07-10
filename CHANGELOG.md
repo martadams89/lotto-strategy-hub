@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/martadams89/lotto-strategy-hub/compare/v1.2.0...v1.2.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* **ci:** route draw-results sync through a PR instead of pushing to main ([#18](https://github.com/martadams89/lotto-strategy-hub/issues/18)) ([81b9f9f](https://github.com/martadams89/lotto-strategy-hub/commit/81b9f9f25b5f0aaa84dcf1c965eb8f1b0af7fb68))
+
 ## [1.2.0](https://github.com/martadams89/lotto-strategy-hub/compare/v1.1.0...v1.2.0) (2026-07-07)
 
 
