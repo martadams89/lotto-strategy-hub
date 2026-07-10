@@ -7,14 +7,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pull-requests: write
 
 jobs:
   update:
     name: Fetch & validate latest draws
     runs-on: ubuntu-latest
     steps:
+      # Use RENOVATE_TOKEN so the branch this pushes can be opened as a PR that
+      # actually triggers CI (the default GITHUB_TOKEN doesn't trigger
+      # downstream workflows), and so the push itself authenticates as a user
+      # rather than main's ruleset rejecting it as a direct push.
       - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
 
       - uses: actions/setup-node@v6
         with:
@@ -31,15 +38,26 @@ jobs:
       - name: Validate data
         run: npm test
 
-      - name: Commit if changed
+      # main requires a PR + a green "Lint, test & build" check, so this can no
+      # longer push straight to main (that started failing once the ruleset
+      # picked up "changes must be made through a pull request"). Open a PR
+      # instead and arm auto-merge so it lands itself once CI re-confirms green.
+      - name: Open a PR with any new draws
+        env:
+          GH_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- public/data; then
-            git add public/data
-            git commit -m "chore(data): sync latest draw results [skip ci]"
-            git push
-            echo "Committed new draw results."
-          else
+          if git diff --quiet -- public/data; then
             echo "No new draws."
+            exit 0
           fi
+          branch="data/draw-results-$(date -u +%Y%m%d-%H%M%S)"
+          git checkout -b "$branch"
+          git add public/data
+          git commit -m "chore(data): sync latest draw results"
+          git push origin "$branch"
+          pr_url=$(gh pr create --title "chore(data): sync latest draw results" \
+            --body "Automated draw-results sync, scraped and validated by the update-results workflow." \
+            --base main --head "$branch")
+          gh pr merge --auto --squash --delete-branch "$pr_url"
