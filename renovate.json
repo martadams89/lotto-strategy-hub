@@ -10,7 +10,6 @@
   "schedule": ["after 10pm every weekday", "every weekend"],
   "labels": ["dependencies"],
   "prHourlyLimit": 3,
-  "platformAutomerge": false,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
@@ -21,15 +20,10 @@
   },
   "packageRules": [
     {
-      "description": "Auto-merge everything once CI is green — self-maintaining. The test suite (npm test) and build are the gate.",
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
-      "automerge": true
-    },
-    {
-      "description": "Major updates: also auto-merged when green, per project policy. A green CI means tests + build passed.",
-      "matchUpdateTypes": ["major"],
+      "description": "Auto-merge everything — major/minor/patch/pin/digest — once required CI is green (lint/typecheck, tests, build). CI is the gate, not semver.",
+      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
       "automerge": true,
-      "minimumReleaseAge": "3 days"
+      "platformAutomerge": true
     }
   ]
 }
