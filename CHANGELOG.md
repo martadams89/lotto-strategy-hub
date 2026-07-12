@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/martadams89/lotto-strategy-hub/compare/v1.2.1...v1.2.2) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lucide-react to v1 ([#28](https://github.com/martadams89/lotto-strategy-hub/issues/28)) ([2925136](https://github.com/martadams89/lotto-strategy-hub/commit/2925136037f470c49568f5984da7c573a8235cb6))
+
 ## [1.2.1](https://github.com/martadams89/lotto-strategy-hub/compare/v1.2.0...v1.2.1) (2026-07-10)
 
 
