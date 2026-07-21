@@ -2,8 +2,8 @@ name: Renovate
 
 on:
   schedule:
-    # Daily at 03:00 UTC — Renovate itself respects the schedule in renovate.json.
-    - cron: "0 3 * * *"
+    # Daily at 02:00 UTC — Renovate itself respects the schedule in renovate.json.
+    - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
       logLevel:
