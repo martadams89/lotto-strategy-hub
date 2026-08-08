@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/martadams89/lotto-strategy-hub/compare/v1.2.2...v1.2.3) (2026-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency motion to v13 ([#52](https://github.com/martadams89/lotto-strategy-hub/issues/52)) ([c870b77](https://github.com/martadams89/lotto-strategy-hub/commit/c870b77b508d4d1f115a389194c28e5da69223ca))
+
 ## [1.2.2](https://github.com/martadams89/lotto-strategy-hub/compare/v1.2.1...v1.2.2) (2026-07-12)
 
 
