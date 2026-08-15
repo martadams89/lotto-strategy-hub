@@ -7,7 +7,6 @@
     "group:allNonMajor"
   ],
   "timezone": "Europe/London",
-  "schedule": ["after 10pm every weekday", "every weekend"],
   "labels": ["dependencies"],
   "prHourlyLimit": 3,
   "lockFileMaintenance": {
