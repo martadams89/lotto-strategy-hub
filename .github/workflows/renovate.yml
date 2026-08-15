@@ -2,7 +2,7 @@ name: Renovate
 
 on:
   schedule:
-    # Daily at 02:00 UTC — Renovate itself respects the schedule in renovate.json.
+    # Daily at 02:00 UTC; cadence lives here rather than in renovate.json.
     - cron: "0 2 * * *"
   workflow_dispatch:
     inputs:
@@ -31,4 +31,6 @@ jobs:
         env:
           RENOVATE_REPOSITORIES: ${{ github.repository }}
           RENOVATE_PLATFORM: github
+          RENOVATE_ONBOARDING: 'false'
+          RENOVATE_REQUIRE_CONFIG: required
           LOG_LEVEL: ${{ github.event.inputs.logLevel || 'info' }}
